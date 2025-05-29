@@ -7,10 +7,12 @@ export class AdminController {
   async login(req: Request, res: Response) {
     const { email, password } = req.body;
     const user = await this.userService.login(email, password);
+    console.log(user)
     if (!user || user.role !== "admin") {
        res.status(401).json({ message: "Invalid credentials or not an admin" });
+    }else{
+      res.json(user);
     }
-    res.json(user);
   }
 
   async getStudents(req: Request, res: Response) {
